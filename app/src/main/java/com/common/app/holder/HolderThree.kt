@@ -1,9 +1,9 @@
-package com.common.commonadapter.holder
+package com.common.app.holder
 
 import android.content.Context
 import android.view.ViewGroup
 import android.widget.Toast
-import com.common.commonadapter.R
+import com.common.app.R
 import com.common.commonadapter.base.ItemViewHolder
 import com.common.commonadapter.listener.HolderCallBack
 

@@ -1,4 +1,4 @@
-package com.common.commonadapter
+package com.common.app
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import android.util.Log
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.common.commonadapter.base.ItemViewHolder
-import com.common.commonadapter.holder.HolderOne
+import com.common.app.holder.HolderOne
 import com.common.commonadapter.listener.HolderCreater
 import com.common.commonadapter.listener.LoadMoreListener
 import com.qts.common.commonadapter.CommonSimpleAdapter
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
                 parent: ViewGroup?,
                 viewType: Int
             ): ItemViewHolder<*> {
-                return HolderOne(context,parent)
+                return HolderOne(context, parent)
             }
         })
 
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.adapter = adapter
-        adapter?.registerHolderCallBack(object:HolderOne.HolderOneCallback{
+        adapter?.registerHolderCallBack(object: HolderOne.HolderOneCallback{
             override fun oneClick() {
                 Log.e("AAAA","one callback")
             }

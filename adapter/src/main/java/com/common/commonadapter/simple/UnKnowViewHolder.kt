@@ -3,8 +3,8 @@ package com.common.commonadapter.simple
 import android.content.Context
 import androidx.core.content.ContextCompat
 import android.view.ViewGroup
+import com.common.commonadapter.BuildConfig
 import com.common.commonadapter.R
-import com.qts.common.adapter.BuildConfig
 import com.common.commonadapter.base.ItemViewHolder
 
 

@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.SparseArray
 import android.view.ViewGroup
 import com.common.commonadapter.base.BaseAdapter
-import com.qts.common.adapter.BuildConfig
 import com.common.commonadapter.base.ItemViewHolder
 import com.common.commonadapter.listener.HolderCallBack
 import com.common.commonadapter.listener.HolderCreater

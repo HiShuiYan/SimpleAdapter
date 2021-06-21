@@ -459,6 +459,7 @@ abstract class BaseAdapter<T>(var context: Context) : RecyclerView.Adapter<ItemV
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
         super.onAttachedToRecyclerView(recyclerView)
+        recyclerView.overScrollMode = View.OVER_SCROLL_NEVER
         weakRecyclerView = WeakReference(recyclerView)
         resetHolderSpanCountForGrid(recyclerView)
     }
