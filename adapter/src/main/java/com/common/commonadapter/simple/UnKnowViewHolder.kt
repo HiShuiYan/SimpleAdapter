@@ -7,7 +7,6 @@ import com.common.commonadapter.BuildConfig
 import com.common.commonadapter.R
 import com.common.commonadapter.base.ItemViewHolder
 
-
 //未知Type的Holder
 //Debug 模式，会有提醒
 class UnKnowViewHolder(context: Context, parent: ViewGroup?) :
