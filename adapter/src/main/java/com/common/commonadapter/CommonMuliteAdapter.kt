@@ -7,25 +7,31 @@ import com.common.commonadapter.base.BaseAdapter
 import com.common.commonadapter.base.ItemViewHolder
 import com.common.commonadapter.listener.HolderCallBack
 import com.common.commonadapter.listener.HolderCreater
-import com.common.commonadapter.listener.HolderRegister
 import com.common.commonadapter.simple.SimpleViewHolder
 import com.common.commonadapter.simple.TemplateData
 import com.common.commonadapter.simple.UnKnowViewHolder
 
 class CommonMuliteAdapter : BaseAdapter<TemplateData> {
+
     private var holderCreater: HolderCreater? = null
     private val callbacks = SparseArray<HolderCallBack>()
     private val holders = SparseArray<Class<out ItemViewHolder<*>>>()
     private val datas = SparseArray<Class<*>>()
 
-    // HolderRegister
-    constructor(context: Context, register: HolderRegister) : super(context) {
-        register.registerHolder(holders, datas)
-    }
+    constructor(context: Context) : super(context) {}
 
     // holderCreater
     constructor(context: Context, holderCreater: HolderCreater) : super(context) {
         this.holderCreater = holderCreater
+    }
+
+    fun registerItemHolder(
+        key: Int,
+        holderClass: Class<out ItemViewHolder<*>>,
+        dataClass: Class<*>
+    ) {
+        holders.put(key, holderClass)
+        datas.put(key, dataClass)
     }
 
     fun registerHolderCallBack(viewType: Int, callBack: HolderCallBack) {
@@ -114,16 +120,17 @@ class CommonMuliteAdapter : BaseAdapter<TemplateData> {
 
     private fun getItemViewTypeByData(templateData: TemplateData?): Int {
         if (templateData == null) return UNKNOW
-        val template = templateData.template;
-        val data = templateData.data
-
-        //data 为空，template 为空，对应template没有注册holder,对应template数据不匹配
-        //注册时候说需要T，列表中也传了T，如果传了非T，不识别UNKNOW holder
-        //但是bind时候holder可能需要的是A
-        if (data == null || template == -1 || holders.get(template) == null
-            || !data.javaClass.equals(datas.get(template))
-        ) {
-            return UNKNOW
+        val template = templateData.template
+        if(holderCreater==null) {
+            val data = templateData.data
+            //data 为空，template 为空，对应template没有注册holder,对应template数据不匹配
+            //注册时候说需要T，列表中也传了T，如果传了非T，不识别UNKNOW holder
+            //但是bind时候holder可能需要的是A
+            if (data == null || template == -1 || holders.get(template) == null
+                || !data.javaClass.equals(datas.get(template))
+            ) {
+                return UNKNOW
+            }
         }
         return template
     }
