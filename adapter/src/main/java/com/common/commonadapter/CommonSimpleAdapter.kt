@@ -4,11 +4,12 @@ import android.content.Context
 import android.view.ViewGroup
 import com.common.commonadapter.base.BaseAdapter
 import com.common.commonadapter.base.ItemViewHolder
+import com.common.commonadapter.base.LifecycleAdapter
 import com.common.commonadapter.listener.HolderCallBack
 import com.common.commonadapter.listener.HolderCreater
 import com.common.commonadapter.simple.SimpleViewHolder
 
-class CommonSimpleAdapter<T> : BaseAdapter<T> {
+class CommonSimpleAdapter<T> : LifecycleAdapter<T> {
 
     // 通过 Holder反射创建
     constructor(context: Context,holderClass: Class<out ItemViewHolder<*>>) : super(context) {

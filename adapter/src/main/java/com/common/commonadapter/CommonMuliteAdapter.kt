@@ -5,13 +5,14 @@ import android.util.SparseArray
 import android.view.ViewGroup
 import com.common.commonadapter.base.BaseAdapter
 import com.common.commonadapter.base.ItemViewHolder
+import com.common.commonadapter.base.LifecycleAdapter
 import com.common.commonadapter.listener.HolderCallBack
 import com.common.commonadapter.listener.HolderCreater
 import com.common.commonadapter.simple.SimpleViewHolder
 import com.common.commonadapter.simple.TemplateData
 import com.common.commonadapter.simple.UnKnowViewHolder
 
-class CommonMuliteAdapter : BaseAdapter<TemplateData> {
+class CommonMuliteAdapter : LifecycleAdapter<TemplateData> {
 
     private var holderCreater: HolderCreater? = null
     private val callbacks = SparseArray<HolderCallBack>()

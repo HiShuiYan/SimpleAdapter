@@ -70,6 +70,8 @@ class MainActivity : AppCompatActivity() {
         list.add("Hahah" + (adapter!!.getDataCount() + 14))
         list.add("Hahah" + (adapter!!.getDataCount() + 15))
         adapter?.addDatas(list)
+        //区分单次加载完成和列表加载到底
+        //
 //        adapter?.loadMoreEnd()
         adapter?.loadMoreComplete()
     }
