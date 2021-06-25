@@ -19,20 +19,21 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        adapter = CommonSimpleAdapter(this, object : HolderCreater {
-            override fun getHolder(
-                context: Context,
-                parent: ViewGroup?,
-                viewType: Int
-            ): ItemViewHolder<*> {
-                return HolderOne(context, parent)
-            }
-        })
 
-//        adapter = CommonSimpleAdapter(this,HolderOne::class.java)
+        //两种列表构建模式
+        //1
+//        adapter = CommonSimpleAdapter(this, object : HolderCreater {
+//            override fun getHolder(context: Context, parent: ViewGroup?, viewType: Int): ItemViewHolder<*> {
+//                return HolderOne(context, parent)
+//            }
+//        })
+        //2
+        adapter = CommonSimpleAdapter(this,HolderOne::class.java)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.adapter = adapter
+
+        //HolderCallBack，用于Holder和外部交互
         adapter?.registerHolderCallBack(object : HolderOne.HolderOneCallback {
             override fun oneClick() {
                 Log.e("AAAA", "one callback")
@@ -41,11 +42,13 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        //设置listener后支持上拉加载更多
         adapter?.setLoadMoreListener(object : LoadMoreListener {
             override fun loadMore() {
                 recyclerView.postDelayed(Runnable { addData() }, 2000)
             }
         })
+
         addData()
     }
 
@@ -67,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         list.add("Hahah" + (adapter!!.getDataCount() + 14))
         list.add("Hahah" + (adapter!!.getDataCount() + 15))
         adapter?.addDatas(list)
+//        adapter?.loadMoreEnd()
         adapter?.loadMoreComplete()
     }
 

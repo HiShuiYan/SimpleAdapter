@@ -28,24 +28,30 @@ class TwoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_two)
 
-        adapter = CommonMuliteAdapter(this,object:HolderCreater{
-            override fun getHolder(context: Context, parent: ViewGroup?, viewType: Int): ItemViewHolder<*> {
-                when(viewType){
-                    TYPE_ONE ->  return HolderOne(context,parent)
-                    TYPE_TWO ->  return HolderTwo(context,parent)
-                    TYPE_THREE ->  return HolderThree(context,parent)
-                    else -> return UnKnowViewHolder(context,parent)
-                }
-            }
-        })
 
-//        adapter = CommonMuliteAdapter(this)
-//        adapter?.registerItemHolder(TYPE_ONE,HolderOne::class.java,String::class.java)
-//        adapter?.registerItemHolder(TYPE_TWO,HolderTwo::class.java,String::class.java)
-//        adapter?.registerItemHolder(TYPE_THREE,HolderThree::class.java,String::class.java)
+        //两种构造方法
+        //1
+//        adapter = CommonMuliteAdapter(this,object:HolderCreater{
+//            override fun getHolder(context: Context, parent: ViewGroup?, viewType: Int): ItemViewHolder<*> {
+//                when(viewType){
+//                    TYPE_ONE ->  return HolderOne(context,parent)
+//                    TYPE_TWO ->  return HolderTwo(context,parent)
+//                    TYPE_THREE ->  return HolderThree(context,parent)
+//                    else -> return UnKnowViewHolder(context,parent)
+//                }
+//            }
+//        })
+
+        //2
+        adapter = CommonMuliteAdapter(this)
+        //viewType、对应Holder、Holder中实体数据
+        adapter?.registerItemHolder(TYPE_ONE,HolderOne::class.java,String::class.java)
+        adapter?.registerItemHolder(TYPE_TWO,HolderTwo::class.java,String::class.java)
+        adapter?.registerItemHolder(TYPE_THREE,HolderThree::class.java,String::class.java)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.adapter = adapter
+        //Holder和外部交互
         adapter?.registerHolderCallBack(TYPE_ONE,object:HolderOne.HolderOneCallback{
             override fun oneClick() {
                 Log.e("AAAA","one callback")
@@ -59,7 +65,7 @@ class TwoActivity : AppCompatActivity() {
             }
         })
 
-
+        //加载更多
         adapter?.setLoadMoreListener(object:LoadMoreListener{
             override fun loadMore() {
                 recyclerView.postDelayed(Runnable { addData() },2000)
@@ -69,6 +75,7 @@ class TwoActivity : AppCompatActivity() {
     }
 
     private fun addData(){
+        //数据源驱动列表渲染
         val list = mutableListOf<TemplateData>()
         list.add(TemplateData(TYPE_ONE,"Hahah"+(adapter!!.getDataCount()+1)))
         list.add(TemplateData(TYPE_TWO,"Hahah"+(adapter!!.getDataCount()+2)))
